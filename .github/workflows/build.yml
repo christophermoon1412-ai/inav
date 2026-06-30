@@ -1,0 +1,16 @@
+name: Build iNAV
+on: [push]
+jobs:
+  build:
+      runs-on: ubuntu-latest
+          steps:
+                - uses: actions/checkout@v3
+                      - name: Compile Target
+                              run: |
+                                        docker run --rm -v ${{ github.workspace }}:/opt/inav -w /opt/inav inavflight/inav-build make TARGET=WEACTF405
+                                              - name: Upload Binary
+                                                      uses: actions/upload-artifact@v3
+                                                              with:
+                                                                        name: WEACTF405_Firmware
+                                                                                  path: build/inav_*.hex
+                                                                                  
